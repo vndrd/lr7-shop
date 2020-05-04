@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Product;
+use App\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    /*$cat = Category::find(1)->products;
+    return $cat;*/
+   // return view('welcome');
+   return view('tienda.index');
 });
+
+/* #5 */
+/*
+$prod = new Product();
+    $prod->nombre = 'Producto 3';
+    $prod->slug = 'Producto 3';
+    $prod->category_id =  2;
+    $prod->descripcion_corta = 'Producto 3';
+    $prod->descripcion_larga = 'Producto 3';
+    $prod->especificaciones = 'Producto 3';
+    $prod->datos_De_interes = 'Producto 3';
+    $prod->estado = 'Nuevo';
+    $prod->activo = 'Si';
+    $prod->sliderprincipal = 'No';
+$prod->save();
+return $prod;
+*/
+
+
 
 Auth::routes();
 
