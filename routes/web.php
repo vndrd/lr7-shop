@@ -15,11 +15,16 @@ use App\Category;
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin', function () {
     /*$cat = Category::find(1)->products;
     return $cat;*/
    // return view('welcome');
-   return view('tienda.index');
+    //  
+     //return view('tienda.index');
+    return view('admin.category.create');
+});
+Route::get('/', function () {
+    return view('tienda.index');
 });
 
 /* #5 */

@@ -49803,7 +49803,60 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    nombre: 'Jhonatan Fernández',
+    slug: '',
+    div_mensajeslug: 'Slug Existe',
+    div_clase_slug: 'badge badge-danger',
+    div_aparecer: false,
+    deshabilitar_boton: 0
+  },
+  computed: {
+    generarSLug: function generarSLug() {
+      var _char = {
+        "á": "a",
+        "é": "e",
+        "í": "i",
+        "ó": "o",
+        "ú": "u",
+        "Á": "A",
+        "É": "E",
+        "Í": "I",
+        "Ó": "O",
+        "Ú": "U",
+        "ñ": "n",
+        "Ñ": "N",
+        " ": "-",
+        "_": "-"
+      };
+      var expr = /[áéíóúÁÉÍÓÚÑñ_ ]/g;
+      this.slug = this.nombre.trim().replace(expr, function (e) {
+        return _char[e];
+      }).toLowerCase();
+      return this.slug; //return this.nombre.trim().replace(/ /g,'-').toLowerCase()
+    }
+  },
+  methods: {
+    getCategory: function getCategory() {
+      var _this = this;
+
+      var url = 'api/category/' + this.slug;
+      axios.get(url).then(function (response) {
+        _this.div_mensajeslug = response.data;
+
+        if (_this.div_mensajeslug === "Slug Disponible") {
+          _this.div_clase_slug = 'badge badge-success';
+          _this.deshabilitar_boton = 0;
+        } else {
+          _this.div_clase_slug = 'badge badge-danger';
+          _this.deshabilitar_boton = 1;
+        }
+
+        _this.div_aparecer = true;
+      });
+    }
+  }
 });
 
 /***/ }),
