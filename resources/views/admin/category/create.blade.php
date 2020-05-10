@@ -31,7 +31,7 @@
                         name="slug">
                 <div v-if="settings.mostrar_mensaje" 
                     v-bind:class="settings.clase_slug" >
-                    @{{ div_mensajeslug }}
+                    @{{ settings.mensaje_slug }}
                 </div>
                 <label class="d-block" for="descripcion">Descripción</label>
                     <textarea class="form-control" 

@@ -49785,6 +49785,7 @@ var apicategory = new Vue({
     descripcion: '',
     settings: {
       clase_slug: 'badge badge-danger',
+      mensaje_slug: 'Slug Existe',
       deshabilitar_boton: true,
       mostrar_mensaje: false
     },
@@ -49820,11 +49821,12 @@ var apicategory = new Vue({
       var _this = this;
 
       var url = "/api/category/".concat(this.slug);
-      axios.get(url).then(function (response) {
-        _this.div_mensajeslug = response.data;
+      axios.get(url).then(function (_ref) {
+        var data = _ref.data;
         _this.settings = {
-          clase_slug: _this.div_mensajeslug === "Slug Disponible" ? 'badge badge-success' : 'badge badge-danger',
-          deshabilitar_boton: !(_this.div_mensajeslug === "Slug Disponible"),
+          mensaje_slug: data,
+          clase_slug: data === 'Slug Disponible' ? 'badge badge-success' : 'badge badge-danger',
+          deshabilitar_boton: !(data === 'Slug Disponible'),
           mostrar_mensaje: true
         };
       });

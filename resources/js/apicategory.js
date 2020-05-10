@@ -6,6 +6,7 @@ var apicategory = new Vue({
         descripcion: '',
         settings : {
             clase_slug: 'badge badge-danger',
+            mensaje_slug: 'Slug Existe',
             deshabilitar_boton: true,
             mostrar_mensaje: false
         },
@@ -26,13 +27,13 @@ var apicategory = new Vue({
     methods: {
         getCategory() {
             let url = `/api/category/${this.slug}`;
-            axios.get(url).then(response => {
-                this.div_mensajeslug = response.data;
+            axios.get(url).then(({data}) => {
                 this.settings = {
-                    clase_slug: this.div_mensajeslug==="Slug Disponible" ? 
+                    mensaje_slug: data,
+                    clase_slug: data ==='Slug Disponible' ? 
                             'badge badge-success': 
                             'badge badge-danger',
-                    deshabilitar_boton: !(this.div_mensajeslug==="Slug Disponible"),
+                    deshabilitar_boton: !(data ==='Slug Disponible'),
                     mostrar_mensaje: true
                 }
             })
