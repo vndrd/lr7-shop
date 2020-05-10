@@ -49770,6 +49770,76 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/apicategory.js":
+/*!*************************************!*\
+  !*** ./resources/js/apicategory.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var apicategory = new Vue({
+  el: '#apicategory',
+  data: {
+    nombre: 'Jhonatan Fernández',
+    slug: '',
+    descripcion: '',
+    div_mensajeslug: 'Slug Existe',
+    div_clase_slug: 'badge badge-danger',
+    div_aparecer: false,
+    deshabilitar_boton: 0
+  },
+  created: function created() {
+    console.log("this shit messed up");
+  },
+  computed: {
+    generarSLug: function generarSLug() {
+      var _char = {
+        "á": "a",
+        "é": "e",
+        "í": "i",
+        "ó": "o",
+        "ú": "u",
+        "Á": "A",
+        "É": "E",
+        "Í": "I",
+        "Ó": "O",
+        "Ú": "U",
+        "ñ": "n",
+        "Ñ": "N",
+        " ": "-",
+        "_": "-"
+      };
+      var expr = /[áéíóúÁÉÍÓÚÑñ_ ]/g;
+      this.slug = this.nombre.trim().replace(expr, function (e) {
+        return _char[e];
+      }).toLowerCase();
+      return this.slug;
+    }
+  },
+  methods: {
+    getCategory: function getCategory() {
+      var _this = this;
+
+      var url = "/api/category/".concat(this.slug);
+      axios.get(url).then(function (response) {
+        _this.div_mensajeslug = response.data;
+
+        if (_this.div_mensajeslug === "Slug Disponible") {
+          _this.div_clase_slug = 'badge badge-success';
+          _this.deshabilitar_boton = 0;
+        } else {
+          _this.div_clase_slug = 'badge badge-danger';
+          _this.deshabilitar_boton = 1;
+        }
+
+        _this.div_aparecer = true;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -49803,61 +49873,10 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  */
 
 var app = new Vue({
-  el: '#app',
-  data: {
-    nombre: 'Jhonatan Fernández',
-    slug: '',
-    div_mensajeslug: 'Slug Existe',
-    div_clase_slug: 'badge badge-danger',
-    div_aparecer: false,
-    deshabilitar_boton: 0
-  },
-  computed: {
-    generarSLug: function generarSLug() {
-      var _char = {
-        "á": "a",
-        "é": "e",
-        "í": "i",
-        "ó": "o",
-        "ú": "u",
-        "Á": "A",
-        "É": "E",
-        "Í": "I",
-        "Ó": "O",
-        "Ú": "U",
-        "ñ": "n",
-        "Ñ": "N",
-        " ": "-",
-        "_": "-"
-      };
-      var expr = /[áéíóúÁÉÍÓÚÑñ_ ]/g;
-      this.slug = this.nombre.trim().replace(expr, function (e) {
-        return _char[e];
-      }).toLowerCase();
-      return this.slug; //return this.nombre.trim().replace(/ /g,'-').toLowerCase()
-    }
-  },
-  methods: {
-    getCategory: function getCategory() {
-      var _this = this;
-
-      var url = 'api/category/' + this.slug;
-      axios.get(url).then(function (response) {
-        _this.div_mensajeslug = response.data;
-
-        if (_this.div_mensajeslug === "Slug Disponible") {
-          _this.div_clase_slug = 'badge badge-success';
-          _this.deshabilitar_boton = 0;
-        } else {
-          _this.div_clase_slug = 'badge badge-danger';
-          _this.deshabilitar_boton = 1;
-        }
-
-        _this.div_aparecer = true;
-      });
-    }
-  }
+  el: "#app"
 });
+
+__webpack_require__(/*! ./apicategory */ "./resources/js/apicategory.js");
 
 /***/ }),
 

@@ -16,7 +16,6 @@
 </head>
 <body>
     
-
     <div class="container">
         <div id="app">
             <form action="">
@@ -45,10 +44,8 @@
         
             </form>
             <br><br>
-
             {{ nombre }}
             <br>
-        
             {{ generarSLug }}
             <br>
             {{ slug }}
@@ -75,13 +72,8 @@ var app = new Vue({
                 "ñ":"n","Ñ":"N"," ":"-","_":"-"
             }
             var expr = /[áéíóúÁÉÍÓÚÑñ_ ]/g;
-
-            this.slug =  this.nombre.trim().replace(expr, function(e){
-                return char[e]
-            }).toLowerCase()
-
-           return this.slug;
-           //return this.nombre.trim().replace(/ /g,'-').toLowerCase()
+            this.slug =  this.nombre.trim().replace(expr, (e) => char[e] ).toLowerCase()
+            return this.slug;
         }
     },
     methods: {
@@ -89,14 +81,22 @@ var app = new Vue({
             let url = `api/category/${this.slug}`;
             axios.get(url).then(response => {
                this.div_mensajeslug = response.data;
-               console.log(response.data)
                 if (this.div_mensajeslug==="Slug Disponible") {
-                    console.log("goes to slug disponigle")
                     this.div_clase_slug = 'badge badge-success';
-                    this.deshabilitar_boton=0;
+                    this.deshabilitar_boton = 0;
                 } else {
                     this.div_clase_slug = 'badge badge-danger';
-                    this.deshabilitar_boton=1;
+                    this.deshabilitar_boton = 1;
                 }
                 this.div_aparecer = true;
-                    //https://www.techiediaries.com/laravel/lara
+                //https://www.techiediaries.com/laravel/laravel-7-6-cors-example-and-tutorial/
+            })
+        }
+    }
+
+});
+
+</script>
+
+</body>
+</html>

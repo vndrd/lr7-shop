@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
 
-class CategoryController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,15 +14,18 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {/*
-        $cat = new Category();
-        $cat->nombre = 'Mujer';
-        $cat->slug = 'mujer';
-        $cat->descripcion = 'Ropa para Mujeres';
-        $cat->save();
-        return $cat;
-        */
-        return Category::all();
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.category.create');
     }
 
     /**
@@ -33,7 +36,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Category::create($request->all());
     }
 
     /**
@@ -42,11 +45,19 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        if(Category::where('slug',$slug)->first())
-            return "Slug existe";
-        return "Slug Disponible";
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
         //
     }
 

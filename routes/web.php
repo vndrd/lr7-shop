@@ -15,14 +15,6 @@ use App\Category;
 |
 */
 
-Route::get('/admin', function () {
-    /*$cat = Category::find(1)->products;
-    return $cat;*/
-   // return view('welcome');
-    //  
-     //return view('tienda.index');
-    return view('admin.category.create');
-});
 Route::get('/', function () {
     return view('tienda.index');
 });
@@ -49,3 +41,8 @@ return $prod;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/admin', function () {
+    return view('plantila.admin');  
+});
+Route::resource('admin/category', 'Admin\AdminController')->names('admin.category');
