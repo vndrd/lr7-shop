@@ -1,17 +1,16 @@
 var apicategory = new Vue({
     el: '#apicategory',
     data: {
-        nombre: 'Jhonatan Fernández',
+        nombre: 'Nombre',
         slug: '',
         descripcion: '',
+        settings : {
+            clase_slug: 'badge badge-danger',
+            deshabilitar_boton: true,
+            mostrar_mensaje: false
+        },
         div_mensajeslug:'Slug Existe',
-        div_clase_slug: 'badge badge-danger',
-        div_aparecer: false,
-        deshabilitar_boton:0
     }, 
-    created(){
-        console.log("this shit messed up")
-    },
     computed: {
         generarSLug : function(){
             var char= {
@@ -29,14 +28,13 @@ var apicategory = new Vue({
             let url = `/api/category/${this.slug}`;
             axios.get(url).then(response => {
                 this.div_mensajeslug = response.data;
-                if (this.div_mensajeslug==="Slug Disponible") {
-                    this.div_clase_slug = 'badge badge-success';
-                    this.deshabilitar_boton = 0;
-                } else {
-                    this.div_clase_slug = 'badge badge-danger';
-                    this.deshabilitar_boton = 1;
+                this.settings = {
+                    clase_slug: this.div_mensajeslug==="Slug Disponible" ? 
+                            'badge badge-success': 
+                            'badge badge-danger',
+                    deshabilitar_boton: !(this.div_mensajeslug==="Slug Disponible"),
+                    mostrar_mensaje: true
                 }
-                this.div_aparecer = true;
             })
         }
     }

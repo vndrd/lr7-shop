@@ -49780,16 +49780,15 @@ module.exports = function(module) {
 var apicategory = new Vue({
   el: '#apicategory',
   data: {
-    nombre: 'Jhonatan Fernández',
+    nombre: 'Nombre',
     slug: '',
     descripcion: '',
-    div_mensajeslug: 'Slug Existe',
-    div_clase_slug: 'badge badge-danger',
-    div_aparecer: false,
-    deshabilitar_boton: 0
-  },
-  created: function created() {
-    console.log("this shit messed up");
+    settings: {
+      clase_slug: 'badge badge-danger',
+      deshabilitar_boton: true,
+      mostrar_mensaje: false
+    },
+    div_mensajeslug: 'Slug Existe'
   },
   computed: {
     generarSLug: function generarSLug() {
@@ -49823,16 +49822,11 @@ var apicategory = new Vue({
       var url = "/api/category/".concat(this.slug);
       axios.get(url).then(function (response) {
         _this.div_mensajeslug = response.data;
-
-        if (_this.div_mensajeslug === "Slug Disponible") {
-          _this.div_clase_slug = 'badge badge-success';
-          _this.deshabilitar_boton = 0;
-        } else {
-          _this.div_clase_slug = 'badge badge-danger';
-          _this.deshabilitar_boton = 1;
-        }
-
-        _this.div_aparecer = true;
+        _this.settings = {
+          clase_slug: _this.div_mensajeslug === "Slug Disponible" ? 'badge badge-success' : 'badge badge-danger',
+          deshabilitar_boton: !(_this.div_mensajeslug === "Slug Disponible"),
+          mostrar_mensaje: true
+        };
       });
     }
   }

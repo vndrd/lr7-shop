@@ -1,10 +1,6 @@
 @extends('plantilla.admin')
 @section('titulo','Categorias')
 
-@section('estilos')
-
-@endsection
-
 @section('contenido')
 <div id="apicategory">
 <form action="{{ route('admin.category.store') }}" method="POST">
@@ -21,35 +17,38 @@
             </div>
         </div>
         <div class="card-body">
-            
             <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input v-model="nombre" 
-
-                    @blur="getCategory" 
-                    @focus = "div_aparecer= false"
-                
-                class="form-control" type="text" name="nombre" id="nombre">
+                    <input v-model="nombre" 
+                        @@blur="getCategory" 
+                        @@focus="mostrar_mensaje=false"
+                        class="form-control" 
+                        type="text" name="nombre">
                 <label for="slug">Slug</label>
-                <input readonly v-model="generarSLug"  class="form-control" type="text" name="slug" id="slug">
-                <div v-if="div_aparecer" v-bind:class="div_clase_slug">
+                    <input readonly v-model="generarSLug"  
+                        class="form-control" 
+                        type="text" 
+                        name="slug">
+                <div v-if="settings.mostrar_mensaje" 
+                    v-bind:class="settings.clase_slug" >
                     @{{ div_mensajeslug }}
                 </div>
-                <br v-if="div_aparecer">
-                <label for="descripcion">Descripción</label>
-                <textarea class="form-control" v-model="descripcion" name="descripcion" id="descripcion" cols="30" rows="5"></textarea>                            
+                <label class="d-block" for="descripcion">Descripción</label>
+                    <textarea class="form-control" 
+                            v-model="descripcion" 
+                            name="descripcion" 
+                            cols="30" 
+                            rows="5"></textarea>                            
             </div>
-        </div>
-                <!-- /.card-body -->
+        </div><!-- /.card-body -->
         <div class="card-footer">
-                <input 
-                :disabled = "deshabilitar_boton==1"
-                type="submit" value="Guardar" class="btn btn-primary float-right">
-            
-        </div>
-        <!-- /.card-footer-->
-    </div>
-    <!-- /.card -->
+            <input 
+            :disabled="settings.deshabilitar_boton"
+            type="submit" 
+            value="Guardar" 
+            class="btn btn-primary float-right">
+        </div><!-- /.card-footer-->
+    </div><!-- /.card -->
 </form>
 </div>
 @endsection
