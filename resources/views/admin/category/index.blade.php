@@ -51,7 +51,6 @@
                               <a class="btn btn-danger" href="{{ route('admin.category.index',$categoria->slug) }}"><i class="far fa-trash-alt"></i></a>
                           </td>
                       </tr>
-
                       @endforeach
                     </tbody>
                 </table>

@@ -103,7 +103,9 @@
             </div>
         </header>
     
-        @yield('contenido')
+        <section class="content">
+            @yield('contenido')
+        </section>
             <!-- Footer -->
     
             <footer class="footer">

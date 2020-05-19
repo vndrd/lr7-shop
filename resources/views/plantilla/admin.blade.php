@@ -722,7 +722,16 @@
     <!-- Main content -->
     <section class="content">
 
-         @yield('contenido')
+        @if(session('datos'))
+            <div class="alert alert-success alert-dissmisible fade show" role="alert">
+                {{ session('datos') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @yield('contenido')
 
     </section>
     <!-- /.content -->
