@@ -730,6 +730,14 @@
                 </button>
             </div>
         @endif
+        @if(session('cancelar'))
+            <div class="alert alert-danger alert-dissmisible fade show" role="alert">
+                {{ session('cancelar') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
 
         @yield('contenido')
 

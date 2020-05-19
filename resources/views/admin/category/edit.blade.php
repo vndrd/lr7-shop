@@ -46,6 +46,7 @@
             </div>
         </div><!-- /.card-body -->
         <div class="card-footer">
+            <a href="{{route('cancelar','admin.category.index')}}" class="btn btn-danger" >Cancelar</a>
             <input 
             {{-- :disabled="!nombre" --}}
             :disabled="settings.deshabilitar_boton"
