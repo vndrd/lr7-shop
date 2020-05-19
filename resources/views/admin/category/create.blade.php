@@ -1,5 +1,5 @@
 @extends('plantilla.admin')
-@section('titulo','Categorias')
+@section('titulo','Crear Categoría')
 
 @section('contenido')
 <div id="apicategory">
