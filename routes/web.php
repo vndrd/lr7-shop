@@ -45,4 +45,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', function () {
     return view('plantila.admin');  
 });
-Route::resource('admin/category', 'Admin\AdminController')->names('admin.category');
+Route::resource('admin/category', 'Admin\AdminCategoryController')->names('admin.category');

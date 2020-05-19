@@ -49780,16 +49780,17 @@ module.exports = function(module) {
 var apicategory = new Vue({
   el: '#apicategory',
   data: {
-    nombre: 'Nombre',
+    nombre: '',
     slug: '',
-    descripcion: '',
     settings: {
+      mostrar_mensaje: false,
       clase_slug: 'badge badge-danger',
       mensaje_slug: 'Slug Existe',
-      deshabilitar_boton: true,
-      mostrar_mensaje: false
-    },
-    div_mensajeslug: 'Slug Existe'
+      deshabilitar_boton: true
+    }
+  },
+  mounted: function mounted() {
+    if (document.getElementById('nombretemp')) this.nombre = document.getElementById('nombretemp').innerHTML;
   },
   computed: {
     generarSLug: function generarSLug() {
@@ -49818,16 +49819,27 @@ var apicategory = new Vue({
   },
   methods: {
     getCategory: function getCategory() {
+      if (document.getElementById('nombretemp')) {
+        var nomtemp = document.getElementById('nombretemp').innerHTML;
+
+        if (nomtemp !== this.nombre) {
+          this.buscarCategoria();
+        }
+      } else {
+        this.buscarCategoria();
+      }
+    },
+    buscarCategoria: function buscarCategoria() {
       var _this = this;
 
       var url = "/api/category/".concat(this.slug);
       axios.get(url).then(function (_ref) {
         var data = _ref.data;
         _this.settings = {
+          mostrar_mensaje: true,
           mensaje_slug: data,
           clase_slug: data === 'Slug Disponible' ? 'badge badge-success' : 'badge badge-danger',
-          deshabilitar_boton: !(data === 'Slug Disponible'),
-          mostrar_mensaje: true
+          deshabilitar_boton: !(data === 'Slug Disponible')
         };
       });
     }
@@ -49868,9 +49880,9 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: "#app"
-});
+/*var app = new Vue({
+    el: "#app"
+});*/
 
 __webpack_require__(/*! ./apicategory */ "./resources/js/apicategory.js");
 

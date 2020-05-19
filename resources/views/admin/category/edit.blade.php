@@ -3,8 +3,11 @@
 
 @section('contenido')
 <div id="apicategory">
-<form action="{{ route('admin.category.store') }}" method="POST">
+<form action="{{ route('admin.category.update',$cat->id) }}" method="POST">
     @csrf
+    @method('PUT')
+    <span id="editar" style="displa:none;">{{ $editar }}</span>    
+    <span id="nombretemp" style="displa:none;">{{ $cat->nombre }}</span>    
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
@@ -21,7 +24,7 @@
                 <label for="nombre">Nombre</label>
                     <input v-model="nombre" 
                         @@blur="getCategory" 
-                        @@focus="mostrar_mensaje=false"
+                        @@focus="settings.mostrar_mensaje=false"
                         class="form-control" 
                         type="text" 
                         name="nombre">
@@ -36,16 +39,17 @@
                     @{{ settings.mensaje_slug }}
                 </div>
                 <label class="d-block" for="descripcion">Descripción</label>
-                    <textarea class="form-control" 
-                            name="descripcion" 
-                            cols="30" 
-                            rows="5"></textarea>                            
+                    <textarea class="form-control"
+                            name="descripcion"
+                            cols="30"
+                            rows="5">{{ $cat->descripcion }}</textarea>
             </div>
         </div><!-- /.card-body -->
         <div class="card-footer">
             <input 
+            {{-- :disabled="!nombre" --}}
             :disabled="settings.deshabilitar_boton"
-            type="submit" 
+            type="submit"
             value="Guardar" 
             class="btn btn-primary float-right">
         </div><!-- /.card-footer-->
