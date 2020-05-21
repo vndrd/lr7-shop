@@ -31,4 +31,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
     el: "#app"
 });*/
 
-require('./apicategory')
+if(document.getElementById('apicategory')){
+    require('./apicategory')
+}
+if(document.getElementById('confirmareliminar')){
+    require('./confirmareliminar')
+}

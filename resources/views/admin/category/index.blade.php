@@ -2,7 +2,8 @@
 @section('titulo','Administración de Categorias')
 
 @section('contenido')
-<div class="row">
+<div class="row" id="confirmareliminar">
+  @include('custom.modal_eliminar',[''])
     <div class="col-md-12">
         <div class="card">            
             <div class="card-header">
@@ -17,6 +18,7 @@
                   </div>
                 </div>
               </div>
+              <span id="ruta" style="display:none;">{{route('admin.category.index')}}</span>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0" style="height: 300px;">
                 <a class="btn btn-success m-2 float-right" href="{{route('admin.category.create')}}">Crear</a>
@@ -48,7 +50,11 @@
                               <a class="btn btn-primary" href="{{ route('admin.category.edit',$categoria->slug) }}"><i class="far fa-edit"></i></a>
                           </td>
                           <td>
-                              <a class="btn btn-danger" href="{{ route('admin.category.index',$categoria->slug) }}"><i class="far fa-trash-alt"></i></a>
+                              <a class="btn btn-danger" href="#" @click="deseas_eliminar({{$categoria->id}})"
+                                data-toggle="modal" data-target="#modal_eliminar" data-hola="{{$categoria->id}}"
+                                >
+                                <i class="far fa-trash-alt"></i>
+                              </a>
                           </td>
                       </tr>
                       @endforeach
