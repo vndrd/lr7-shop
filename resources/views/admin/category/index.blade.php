@@ -1,5 +1,9 @@
 @extends('plantilla.admin')
 @section('titulo','Administración de Categorias')
+@section('breadcrumb')
+  <li class="breadcrumb-item active">@yield('titulo')</li>
+@endsection
+
 
 @section('contenido')
 <div class="row" id="confirmareliminar">
@@ -9,13 +13,16 @@
             <div class="card-header">
                 <h3 class="card-title">Sección de Categorías</h3>
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-            
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                  <form>
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                      <input type="text" name="nombre" class="form-control float-right" 
+                          placeholder="Buscar"
+                          value="{{request()->get('nombre')}}">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default float-right"><i class="fas fa-search"></i></button>
+                      </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
               <span id="ruta" style="display:none;">{{route('admin.category.index')}}</span>
@@ -51,8 +58,8 @@
                           </td>
                           <td>
                               <a class="btn btn-danger" href="#" @click="deseas_eliminar({{$categoria->id}})"
-                                data-toggle="modal" data-target="#modal_eliminar" data-hola="{{$categoria->id}}"
-                                >
+                                data-toggle="modal" data-target="#modal_eliminar"
+                              >
                                 <i class="far fa-trash-alt"></i>
                               </a>
                           </td>
@@ -60,7 +67,7 @@
                       @endforeach
                     </tbody>
                 </table>
-                {{$categorias->links()}}
+                {{$categorias->appends($_GET)->links()}}
               </div>
               <!-- /.card-body -->
         </div>
