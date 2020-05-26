@@ -35,6 +35,4 @@ mix.scripts([
     'public/asset/js/custom.js'
 ], 'public/js/all.js')
     
-    
-    
-    
+mix.js('resources/js/app_admin.js', 'public/js')
