@@ -28,7 +28,8 @@
                         @@focus="mostrar_mensaje=false"
                         class="form-control" 
                         type="text" 
-                        name="nombre">
+                        name="nombre"
+                >
                 <label for="slug">Slug</label>
                     <input readonly 
                         v-model="generarSLug"  

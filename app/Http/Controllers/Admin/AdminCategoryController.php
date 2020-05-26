@@ -13,6 +13,9 @@ class AdminCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index(Request $request)
     {
         $nom = $request->get('nombre');
@@ -42,6 +45,10 @@ class AdminCategoryController extends Controller
     public function store(Request $request)
     {
 //        return Category::create($request->all());
+        $request->validate([
+            'nombre' => 'required|max:50|unique:categories,nombre',
+            'slug' => 'required|max:50|unique:categories,slug',
+        ]);
         Category::create($request->all());
         return redirect()->route('admin.category.index')->with('datos','Registro creado correctamente!');
     }
@@ -81,6 +88,10 @@ class AdminCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $cat = Category::findOrFail($id);
+        $request->validate([
+            'nombre' => 'required|max:50|unique:categories,nombre,'.$cat->id,
+            'slug' => 'required|max:50|unique:categories,slug,'.$cat->id,
+        ]);
         $cat->fill($request->all())->save();
         return redirect()->route('admin.category.index')->with('datos','Registro actualizado correctamente!');
     }
