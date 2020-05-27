@@ -93,20 +93,15 @@
                       <input class="form-control" type="number" id="cantidad" name="cantidad" >
                     </div>
                     <!-- /.form-group -->
-        
                   </div>
                   <!-- /.col -->
                 </div>
                 <!-- /.row -->
-    
-    
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-               
             </div>
           </div>
-    
             <!-- /.card -->
              <div class="card card-success">
               <div class="card-header">

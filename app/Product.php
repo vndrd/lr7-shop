@@ -10,4 +10,7 @@ class Product extends Model
         //return $this->belongsTo(Category::class)
         return $this->belongsTo('App\Category');
     }
+    public function images(){
+        return $this->morphsMany('App\Image','imageable');
+    }
 }
