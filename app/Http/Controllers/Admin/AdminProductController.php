@@ -47,9 +47,9 @@ class AdminProductController extends Controller
         $product->slug          = $request->slug;
         $product->category_id   = $request->category_id;
         $product->cantidad      = $request->cantidad;
-        $product->precio_actual         = $request->precio_actual;
-        $product->precio_anterior       = $request->precio_anterior;
-        $product->porcentaje_descuento      = $request->porcentaje_descuento;
+        $product->precio_actual         = $request->precioactual;
+        $product->precio_anterior       = $request->precioanterior;
+        $product->porcentaje_descuento      = $request->porcentajededescuento;
         $product->descripcion_corta         = $request->descripcion_corta;
         $product->descripcion_larga         = $request->descripcion_larga;
         $product->especificaciones      = $request->especificaciones;
@@ -57,8 +57,17 @@ class AdminProductController extends Controller
         $product->visitas       = $request->visitas;
         $product->ventas        = $request->ventas;
         $product->estado        = $request->estado;
-        $product->activo        = $request->activo;
-        $product->sliderprincipal       = $request->sliderprincipal;
+        if($request->sliderprincipal){
+            $product->sliderprincipal = 'Si';
+        }else {
+            $product->sliderprincipal = 'No';
+        }
+        if($request->activo){
+            $product->activo = 'Si';
+        }else {
+            $product->activo = 'No';
+        }
+        $product->save();
         return $product;
     }
 
