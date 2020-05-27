@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Product;
 use App\Category;
+use App\Image;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +15,21 @@ use App\Category;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/prueba', function () {
+    $product = App\Product::find(1);
+        $images[]['url'] = 'imagenes/avatar1.png';
+        $images[]['url'] = 'imagenes/avatar2.png';
+        $images[]['url'] = 'imagenes/avatar3.png';
+    //$product->images()->createMany($images);
+    return $product->images;
+});
+Route::get('/resultados', function () {
+    $product = App\Product::with('images','category')->find(4);
+    return $product;
+});
 Route::get('/', function () {
     return view('tienda.index');
 });
-
 /* #5 */
 /*
 $prod = new Product();

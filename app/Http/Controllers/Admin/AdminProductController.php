@@ -22,7 +22,6 @@ class AdminProductController extends Controller
                 ->paginate(2);
         return view('admin.product.index',compact('productos'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -39,9 +38,27 @@ class AdminProductController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function store(Request $request)
     {
+        // dd($request->file('imagenes')[0]->getMimeType(),$request->file('imagenes')[0]->getClientOriginalExtension() );
+        $request->validate([
+            'nombre' => 'required|max:50|unique:products,nombre',
+            'slug' => 'required|max:50|unique:products,slug',
+            'imagenes.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $urlimagenes = [];
+        if($request->hasFile('imagenes')){
+            foreach ($request->imagenes as $imagen) {
+                $nombre = time().$imagen->getClientOriginalName();
+                $urlimagenes[]['url'] = $nombre;
+                $path = public_path()."/imagenes";
+                $imagen->move($path,$nombre);
+            }
+        }else{
+            dd('no files');
+        }
+        $request->imagenes;  
         $product = new Product();
         $product->nombre        = $request->nombre;
         $product->slug          = $request->slug;
@@ -68,7 +85,8 @@ class AdminProductController extends Controller
             $product->activo = 'No';
         }
         $product->save();
-        return $product;
+        $product->images()->createMany($urlimagenes);
+        return redirect()->route('admin.product.index')->with('datos','Registro creado correctamente');
     }
 
     /**

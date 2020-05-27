@@ -280,9 +280,8 @@
     
                 <div class="form-group">
                     
-                   <label for="archivosimagenes">Subir varias imagenes</label> 
-                                  
-                   <input type="file" class="form-control-file" id="archivosimagenes[]" multiple 
+                   <label for="imagenes">Subir varias imagenes</label> 
+                   <input type="file" class="form-control-file" name="imagenes[]" id="imagenes[]" multiple 
                    accept="image/*" >
                 </div>
     
