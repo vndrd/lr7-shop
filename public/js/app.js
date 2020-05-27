@@ -49848,6 +49848,85 @@ var apicategory = new Vue({
 
 /***/ }),
 
+/***/ "./resources/js/apiproduct.js":
+/*!************************************!*\
+  !*** ./resources/js/apiproduct.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+//asd
+var apiproduct = new Vue({
+  el: '#apiproduct',
+  data: {
+    nombre: '',
+    slug: '',
+    settings: {
+      mostrar_mensaje: false,
+      clase_slug: 'badge badge-danger',
+      mensaje_slug: 'Slug Existe',
+      deshabilitar_boton: true
+    }
+  },
+  mounted: function mounted() {
+    if (document.getElementById('nombretemp')) this.nombre = document.getElementById('nombretemp').innerHTML;
+  },
+  computed: {
+    generarSLug: function generarSLug() {
+      var _char = {
+        "á": "a",
+        "é": "e",
+        "í": "i",
+        "ó": "o",
+        "ú": "u",
+        "Á": "A",
+        "É": "E",
+        "Í": "I",
+        "Ó": "O",
+        "Ú": "U",
+        "ñ": "n",
+        "Ñ": "N",
+        " ": "-",
+        "_": "-"
+      };
+      var expr = /[áéíóúÁÉÍÓÚÑñ_ ]/g;
+      this.slug = this.nombre.trim().replace(expr, function (e) {
+        return _char[e];
+      }).toLowerCase();
+      return this.slug;
+    }
+  },
+  methods: {
+    getProduct: function getProduct() {
+      if (document.getElementById('nombretemp')) {
+        var nomtemp = document.getElementById('nombretemp').innerHTML;
+
+        if (nomtemp !== this.nombre) {
+          this.buscarProducto();
+        }
+      } else {
+        this.buscarProducto();
+      }
+    },
+    buscarProducto: function buscarProducto() {
+      var _this = this;
+
+      var url = "/api/product/".concat(this.slug);
+      axios.get(url).then(function (_ref) {
+        var data = _ref.data;
+        _this.settings = {
+          mostrar_mensaje: true,
+          mensaje_slug: data,
+          clase_slug: data === 'Slug Disponible' ? 'badge badge-success' : 'badge badge-danger',
+          deshabilitar_boton: !(data === 'Slug Disponible')
+        };
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -49994,6 +50073,10 @@ if (document.getElementById('apicategory')) {
 
 if (document.getElementById('confirmareliminar')) {
   __webpack_require__(/*! ./confirmareliminar */ "./resources/js/confirmareliminar.js");
+}
+
+if (document.getElementById('apiproduct')) {
+  __webpack_require__(/*! ./apiproduct */ "./resources/js/apiproduct.js");
 }
 
 /***/ }),

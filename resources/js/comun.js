@@ -14,3 +14,6 @@ if(document.getElementById('apicategory')){
 if(document.getElementById('confirmareliminar')){
     require('./confirmareliminar')
 }
+if(document.getElementById('apiproduct')){
+    require('./apiproduct')
+}

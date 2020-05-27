@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
+use App\Category;
 
 class AdminProductController extends Controller
 {
@@ -29,7 +30,8 @@ class AdminProductController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Category::orderBy('nombre','DESC')->paginate(100);
+        return view('admin.product.create',compact('categorias'));    
     }
 
     /**
@@ -40,7 +42,24 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->nombre        = $request->nombre;
+        $product->slug          = $request->slug;
+        $product->category_id   = $request->category_id;
+        $product->cantidad      = $request->cantidad;
+        $product->precio_actual         = $request->precio_actual;
+        $product->precio_anterior       = $request->precio_anterior;
+        $product->porcentaje_descuento      = $request->porcentaje_descuento;
+        $product->descripcion_corta         = $request->descripcion_corta;
+        $product->descripcion_larga         = $request->descripcion_larga;
+        $product->especificaciones      = $request->especificaciones;
+        $product->datos_de_interes      = $request->datos_de_interes;
+        $product->visitas       = $request->visitas;
+        $product->ventas        = $request->ventas;
+        $product->estado        = $request->estado;
+        $product->activo        = $request->activo;
+        $product->sliderprincipal       = $request->sliderprincipal;
+        return $product;
     }
 
     /**

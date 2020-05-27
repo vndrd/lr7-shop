@@ -1,3 +1,4 @@
+{{-- asdasd --}}
 @extends('plantilla.admin')
 @section('titulo','Crear Categoría')
 @section('breadcrumb')
