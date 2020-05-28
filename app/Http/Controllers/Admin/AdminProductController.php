@@ -56,7 +56,7 @@ class AdminProductController extends Controller
                 $imagen->move($path,$nombre);
             }
         }else{
-            dd('no files');
+            // dd('no files');
         }
         $request->imagenes;  
         $product = new Product();

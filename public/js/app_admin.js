@@ -14672,7 +14672,12 @@ var apiproduct = new Vue({
       clase_slug: 'badge badge-danger',
       mensaje_slug: 'Slug Existe',
       deshabilitar_boton: true
-    }
+    },
+    porcentajededescuento: 0,
+    precioactual: 0,
+    precioanterior: 0,
+    descuento: 0,
+    mensaje_descuento: ''
   },
   mounted: function mounted() {
     if (document.getElementById('nombretemp')) this.nombre = document.getElementById('nombretemp').innerHTML;
@@ -14700,6 +14705,40 @@ var apiproduct = new Vue({
         return _char[e];
       }).toLowerCase();
       return this.slug;
+    },
+    generardescuento: function generardescuento() {
+      if (this.porcentajededescuento > 100) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No puede ser mayor a 100%'
+        });
+        this.porcentajededescuento = 100;
+      }
+
+      if (this.porcentajededescuento < 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No puede ser menor a 0%'
+        });
+        this.porcentajededescuento = 0;
+      }
+
+      if (this.porcentajededescuento > 0) {
+        this.descuento = this.precioanterior * this.porcentajededescuento / 100;
+        this.precioactual = this.precioanterior - this.descuento;
+        this.mensaje_descuento = 'Hay un descuento de $US ' + this.descuento;
+      } else {
+        this.mensaje_descuento = '';
+        this.precioactual = this.precioanterior;
+      }
+
+      if (this.porcentajededescuento == 100) {
+        this.mensaje_descuento = 'Este producto tiene un descuento del 100%, por tanto es gratis';
+      }
+
+      return this.mensaje_descuento;
     }
   },
   methods: {
